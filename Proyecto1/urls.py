@@ -21,12 +21,12 @@ from .views import inicioBuscador, buscador
 from django.views.generic import RedirectView
 
 urlpatterns = [
-    path('', RedirectView.as_view(url='inicio/', permanent=False)),
+    path('', RedirectView.as_view(url='start/', permanent=False)),
     path('admin/', admin.site.urls),
     # path('saludo/', saludo, name='saludo'),
     # path('adios/', despedida, name='despedida'),
     # path('fecha/', dameFecha, name='dameFecha'),
     # path('edades/<int:edad>/<int:agno>', calculaEdad, name='calculaEdad'),
-    path('inicio/', inicioBuscador, name='inicioBuscador'),
-    path('buscar/<str:buscar>/', buscador, name='buscador'),
+    path('start/', inicioBuscador, name='start'),
+    path('search/<str:buscar>/', buscador, name='search'),
 ]

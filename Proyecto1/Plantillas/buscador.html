@@ -139,7 +139,14 @@
     <script>
         function buscar() {
             var palabra = document.getElementById('palabra').value;
-            window.location.href = 'http://127.0.0.1:8000/buscar/' + palabra;
+            var host = window.location.host;
+            var protocol = window.location.protocol;
+
+            // Construir la URL dinámica
+            var dynamicURL = protocol + '//' + host + '/search/' + palabra;
+
+            // Redireccionar a la URL dinámica
+            window.location.href = dynamicURL;
         }
     </script>
 </body>

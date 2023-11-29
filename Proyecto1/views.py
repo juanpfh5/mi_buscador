@@ -1,4 +1,5 @@
 # Proyecto1/views.py
+
 import os
 import time
 from django.http import HttpResponse
@@ -8,40 +9,7 @@ from django.template.loader import get_template
 from urllib.parse import urlsplit, unquote
 from nltk.stem import PorterStemmer
 
-def inicioBuscador(request):
-    docExterno = get_template('inicioBuscador.html')
-    documento = docExterno.render()
-
-    return HttpResponse(documento)
-
-def buscador(request, buscar):
-    tiempoInicio = time.time()
-    (resultados, cont) = buscar_palabras(buscar)
-    tiempoFin = time.time()
-    tiempo = datetime.timedelta(seconds=(tiempoFin - tiempoInicio))
-    
-    docExterno = get_template('buscador.html')
-    documento = docExterno.render({'buscar':buscar, 'links': resultados, 'cont': cont, 'tiempo': tiempo})
-
-    return HttpResponse(documento)
-
-def obtener_nombre_sitio_web(url):
-    # Parsear la URL
-    parsed_url = urlsplit(url)
-
-    # Extraer el nombre de la página y decodificar la URL
-    nombre_pagina = unquote(parsed_url.path.strip('/'))
-
-    # Reemplazar los guiones bajos con espacios
-    nombre_pagina = nombre_pagina.replace('_', ' ')
-
-    # Eliminar el prefijo "wiki_"
-    if nombre_pagina.startswith("wiki_") or nombre_pagina.startswith("wiki/"):
-        nombre_pagina = nombre_pagina[len("wiki_"):]
-
-    # Devolver el nombre de la página
-    return nombre_pagina
-
+# Define la función buscar_palabras
 def buscar_palabras(frase, diccionario, stemmer, no_duplicados):
     # Convertir la frase en un conjunto de palabras en minúsculas y con stemming
     palabras = set(stemmer.stem(palabra.lower()) for palabra in frase.split())
@@ -60,6 +28,34 @@ def buscar_palabras(frase, diccionario, stemmer, no_duplicados):
 
     return resultados_ordenados, cont
 
+def inicioBuscador(request):
+    docExterno = get_template('inicioBuscador.html')
+    documento = docExterno.render()
+
+    return HttpResponse(documento)
+
+def buscador(request, buscar):
+    tiempoInicio = time.time()
+    resultados, cont = buscar_palabras(buscar, diccionario, stemmer, no_duplicados)
+    tiempoFin = time.time()
+    tiempo = datetime.timedelta(seconds=(tiempoFin - tiempoInicio))
+    
+    docExterno = get_template('buscador.html')
+    documento = docExterno.render({'buscar':buscar, 'links': resultados, 'cont': cont, 'tiempo': tiempo})
+
+    return HttpResponse(documento)
+
+def obtener_nombre_sitio_web(url):
+    parsed_url = urlsplit(url)
+    nombre_pagina = unquote(parsed_url.path.strip('/'))
+
+    nombre_pagina = nombre_pagina.replace('_', ' ')
+
+    if nombre_pagina.startswith("wiki_") or nombre_pagina.startswith("wiki/"):
+        nombre_pagina = nombre_pagina[len("wiki_"):]
+
+    return nombre_pagina
+
 # Obtén la ruta del archivo utilizando BASE_DIR
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 file_path = os.path.join(base_dir, 'raiz_ind_inv.txt')
@@ -76,6 +72,8 @@ no_duplicados = set()
 
 # Ahora puedes llamar a la función con los argumentos precalculados
 resultados, cont = buscar_palabras("tu_frase_aqui", diccionario, stemmer, no_duplicados)
+
+
 
 
 
