@@ -14,7 +14,7 @@ WikiNavegador es una aplicación Django simple para buscar y visualizar informac
 2. Navega al directorio del proyecto:
 
     ```bash
-    cd wikinavegador
+    cd Proyecto1
     ```
 
 3. Instala las dependencias:
