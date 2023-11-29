@@ -6,6 +6,7 @@ import datetime
 from django.template import Template, Context
 from django.template.loader import get_template
 from urllib.parse import urlsplit, unquote
+from nltk.stem import PorterStemmer
 
 def inicioBuscador(request):
     docExterno = get_template('inicioBuscador.html')
@@ -41,45 +42,42 @@ def obtener_nombre_sitio_web(url):
     # Devolver el nombre de la página
     return nombre_pagina
 
-def buscar_palabras(frase):
-    # Obtén la ruta del archivo utilizando BASE_DIR
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    file_path = os.path.join(base_dir, 'prueba.txt')
-
-    with open(file_path, 'r', encoding='utf-8') as file:
-        contenido = file.read()
-
-    diccionario = eval(contenido)
-
-    cont = 0
+def buscar_palabras(frase, diccionario, stemmer, no_duplicados):
+    # Convertir la frase en un conjunto de palabras en minúsculas y con stemming
+    palabras = set(stemmer.stem(palabra.lower()) for palabra in frase.split())
     resultados = []
-    noDuplicados = set()
-
-    # Convertir la frase en una lista de palabras
-    palabras = frase.lower().split()
 
     for clave, valores in diccionario.items():
-        if any(palabra.lower() == clave.lower() for palabra in palabras):
+        if any(stemmer.stem(palabra.lower()) == stemmer.stem(clave.lower()) for palabra in palabras):
             for url, frecuencia in valores:
-                if url not in noDuplicados:
+                if url not in no_duplicados:
                     nombre_sitio_web = obtener_nombre_sitio_web(url)
                     resultados.append((url, nombre_sitio_web, frecuencia))
-                    noDuplicados.add(url)
-                    cont+=1
-                else:
-                    # Buscar en resultados y actualizar la frecuencia
-                    for i, (url_existente, _, frecuencia_existente) in enumerate(resultados):
-                        if url_existente == url:
-                            resultados[i] = (_, _, frecuencia_existente + frecuencia)
-                            break
+                    no_duplicados.add(url)
 
     resultados_ordenados = sorted(resultados, key=lambda x: x[2], reverse=True)
-    # resultados_sin_frecuencia = [(url, nombre_sitio_web) for url, nombre_sitio_web, _ in resultados_ordenados]
-
-    # print(f"Palabras buscadas: {palabras}")
-    # print(f"Resultados sin frecuencia: {resultados_ordenados}")
+    cont = len(resultados_ordenados)
 
     return resultados_ordenados, cont
+
+# Obtén la ruta del archivo utilizando BASE_DIR
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+file_path = os.path.join(base_dir, 'raiz_ind_inv.txt')
+
+# Lee el archivo una vez
+with open(file_path, 'r', encoding='utf-8') as file:
+    diccionario = eval(file.read())
+
+# Inicializa el stemmer de NLTK
+stemmer = PorterStemmer()
+
+# Inicializa el conjunto de no_duplicados
+no_duplicados = set()
+
+# Ahora puedes llamar a la función con los argumentos precalculados
+resultados, cont = buscar_palabras("tu_frase_aqui", diccionario, stemmer, no_duplicados)
+
+
 
 
 

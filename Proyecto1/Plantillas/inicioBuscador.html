@@ -6,14 +6,20 @@
     <title>Formulario de Búsqueda</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Helvetica', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
+            background-color: #121212;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
         }
 
         h1 {
-            font-size: 32px;
+            font-size: 36px;
             color: #4285f4;
             margin-bottom: 20px;
             text-align: center;
@@ -21,36 +27,43 @@
 
         p {
             font-size: 16px;
-            color: #08101d;
+            color: #bbb;
             margin-bottom: 20px;
             text-align: center;
         }
 
         form {
             text-align: center;
-            margin-top: 50px;
+            margin-top: 20px;
         }
 
         label {
             display: block;
             font-size: 18px;
             margin-bottom: 10px;
+            color: #bbb;
         }
 
         input[type="text"] {
-            padding: 10px;
-            width: 300px;
+            padding: 12px;
+            width: 100%;
             font-size: 16px;
-            border: 1px solid #ccc;
+            border: 2px solid #555;
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-color: #333;
+            color: #fff;
         }
 
         button {
-            padding: 10px 20px;
+            padding: 12px 24px;
             font-size: 16px;
             cursor: pointer;
             background-color: #4285f4;
             color: #fff;
             border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
         }
 
         button:hover {
@@ -58,19 +71,19 @@
         }
 
         footer {
-            text-align: right;
+            text-align: center;
             padding: 20px;
-            background-color: #bfd5ec;
+            background-color: #333;
             position: fixed;
             bottom: 0;
             width: 100%;
-            box-sizing: border-box; /* Asegura que el padding no se agregue al ancho total */
+            box-sizing: border-box;
+            color: #888;
         }
     </style>
 </head>
 <body>
-    <br><br><br><br><br><br><br><br>
-    <h1>Buscador</h1>
+    <h1>WikiNavegador</h1>
 
     <form id="searchForm">
         <label for="palabra">Buscar:</label>
@@ -78,14 +91,9 @@
         <button type="button" onclick="buscar()">Buscar</button>
     </form>
 
-    <br><br><br><br>
     <p>
         Realiza tu búsqueda entre miles de sitios web de Wikipedia en Inglés 🌐 🤩
     </p>
-
-    <ul>
-        <!-- Tus enlaces aquí -->
-    </ul>
 
     <footer>
         Autores: Sandra Elizabeth Carbajal Lozano, Juan Pablo Fernández Hernández
@@ -99,3 +107,4 @@
     </script>
 </body>
 </html>
+
