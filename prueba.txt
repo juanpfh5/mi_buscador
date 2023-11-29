@@ -1,0 +1,6 @@
+{
+    "hola": [("https://en.wikipedia.org/wiki/1988_Lifesaving_World_Championships", 5), ("https://en.wikipedia.org/wiki/1844_Victoria_One_Penny_Model", 1)],
+    "mundo": [("https://en.wikipedia.org/wiki/1844_Victoria_One_Penny_Model", 5)],
+    "que": [("https://en.wikipedia.org/wiki/1988_Lifesaving_World_Championships", 1)],
+    "tal": [("https://en.wikipedia.org/wiki/1988_Lifesaving_World_Championships", 1)],
+}

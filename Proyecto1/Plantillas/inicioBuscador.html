@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Búsqueda</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #4285f4;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        p {
+            font-size: 16px;
+            color: #08101d;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        label {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4285f4;
+            color: #fff;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #357ae8;
+        }
+
+        footer {
+            text-align: right;
+            padding: 20px;
+            background-color: #bfd5ec;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-sizing: border-box; /* Asegura que el padding no se agregue al ancho total */
+        }
+    </style>
+</head>
+<body>
+    <br><br><br><br><br><br><br><br>
+    <h1>Buscador</h1>
+
+    <form id="searchForm">
+        <label for="palabra">Buscar:</label>
+        <input type="text" id="palabra" name="palabra" required>
+        <button type="button" onclick="buscar()">Buscar</button>
+    </form>
+
+    <br><br><br><br>
+    <p>
+        Realiza tu búsqueda entre miles de sitios web de Wikipedia en Inglés 🌐 🤩
+    </p>
+
+    <ul>
+        <!-- Tus enlaces aquí -->
+    </ul>
+
+    <footer>
+        Autores: Sandra Elizabeth Carbajal Lozano, Juan Pablo Fernández Hernández
+    </footer>
+
+    <script>
+        function buscar() {
+            var palabra = document.getElementById('palabra').value;
+            window.location.href = 'http://127.0.0.1:8000/buscar/' + palabra;
+        }
+    </script>
+</body>
+</html>

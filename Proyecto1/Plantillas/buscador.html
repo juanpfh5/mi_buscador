@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Búsqueda</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #4285f4;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #content {
+            margin: 50px;
+            flex: 1;
+        }
+
+        form {
+            text-align: left;
+            margin-top: 50px;
+        }
+
+        label {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4285f4;
+            color: #fff;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #357ae8;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 30px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #1a0dab; /* Color azul de Google */
+            font-weight: bold;
+            display: block;
+            font-size: 16px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: right;
+            padding: 20px;
+            background-color: #bfd5ec;
+            width: 100%;
+            box-sizing: border-box;
+            flex-shrink: 0;
+        }
+
+        .cont {
+            color: gray;
+            font-size: small;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <form id="searchForm">
+            <label for="palabra">Buscar:</label>
+            <input type="text" id="palabra" name="palabra" value="{{buscar}}" required>
+            <button type="button" onclick="buscar()">Buscar</button>
+        </form>
+
+        <p class="cont">{{cont}} resultados encontrados en {{tiempo}}</p>
+        <br>
+
+        <ul>
+            {% for url, titulo, frecuencia in links %}
+                <li><a href="{{url}}" target="_blank">{{titulo}} - (Frecuencia: {{frecuencia}})</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <footer>
+        Autores: Sandra Elizabeth Carbajal Lozano, Juan Pablo Fernández Hernández
+    </footer>
+
+    <script>
+        function buscar() {
+            var palabra = document.getElementById('palabra').value;
+            window.location.href = 'http://127.0.0.1:8000/buscar/' + palabra;
+        }
+    </script>
+</body>
+</html>
